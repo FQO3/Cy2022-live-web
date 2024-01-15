@@ -1,7 +1,9 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const NodeMediaServer = require('node-media-server');
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+const NodeMediaServer = require("node-media-server");
+const port = 1308;
+
 //开启推流服务器
 const config = {
   rtmp: {
@@ -9,63 +11,44 @@ const config = {
     chunk_size: 60000,
     gop_cache: true,
     ping: 60,
-    ping_timeout: 30
+    ping_timeout: 30,
   },
   http: {
     port: 8001,
-    allow_origin: '*'
-  }
+    allow_origin: "*",
+  },
 };
 const nms = new NodeMediaServer(config);
 nms.run();
 
-//网站分发
-const server = http.createServer((req, res) => {
-  if (req.url === '/') {
-    // 重定向到index.html
-    res.writeHead(302, { 'Location': '/navagation.html' });
-    res.end();
-    return;
-  }
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-  // 获取访问者的IP地址
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+app.use(express.static("public"));
+
+let comments = []; // Array to store comments
+app.get("/admin", (req, res) => {
+  comments = [];
+  res.sendStatus(200);
+});
+
+app.get("/comments", (req, res) => {
+  res.json(comments);
+  // console.log(comments);
+});
+
+app.post("/comments", (req, res) => {
+  var { name, comment } = req.body;
+  comments.unshift({ name, comment });
+  res.status(201).json({ message: "Comment added successfully" });
   const ip = req.connection.remoteAddress;
-  console.log(`Visitor IP: ${ip}`);
-
-  // 读取文件
-  const filePath = path.join(__dirname, req.url);
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.end(`File ${req.url} not found!`);
-      return;
-    }
-
-    // 设置响应 ?
-    const extname = path.extname(req.url);
-    const contentType = getContentType(extname);
-    res.writeHead(200, { 'Content-Type': contentType });
-
-    // 发送文件内 ?
-    res.end(data);
-  });
+  console.log(`message send ip: ${ip}`);
+  console.log(req.body);
 });
 
-const port = 1308;
-server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-
-// 根据文件后缀名获取Content-Type
-function getContentType(extname) {
-  switch (extname) {
-    case '.html':
-      return 'text/html';
-    case '.css':
-      return 'text/css';
-    case '.js':
-      return 'text/javascript';
-    default:
-      return 'text/plain';
-  }
-}

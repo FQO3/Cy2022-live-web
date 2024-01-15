@@ -1,2 +1,2 @@
-node wwwnew.js
+node www.js
 pause
