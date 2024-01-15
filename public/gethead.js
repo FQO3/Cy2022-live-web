@@ -1,4 +1,4 @@
-fetch("http://fqo3.site:1308/head.html")
+fetch("http://cyxsh.top:1308/head.html")
   .then((response) => {
     if (response.ok) {
       console.log(response.json);
