@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员控制台</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+    <center>
+    <h1>管理员控制台，闲人勿进</h1><br>
+    <p>密码每日更新且有ip记录，请勿破解，谢谢</p><br><br>
+    <input type="password" id="password">
+    <button onclick="checkPassword()">确认</button><br>
+    <h2 id="tips"></h2>
+    </center>
+    <script>
+        function checkPassword(){
+            pass='?pass='+String(document.getElementById("password").value);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    res=this.responseText;
+                    if(res!="密码错误"){
+                        window.location.href = res;
+                    }
+                    else{
+                        document.getElementById("tips").innerHTML =res;
+                    }
+                }
+            };
+            xhttp.open("POST", pass, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>

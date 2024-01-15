@@ -49,6 +49,21 @@ app.post("/comments", (req, res) => {
   console.log(req.body);
 });
 
+app.post("/admin/adm.html",(req,res)=>{
+  const currentTime = new Date();
+  today=String(currentTime.getMonth()+1)+String(currentTime.getDate());
+  console.log(today);
+  pass=req.query.pass;
+  console.log(pass);
+  if(pass==today)
+  {
+    res.status(200).send("AdminWebset.html");
+  }
+  else{
+    res.status(200).send("密码错误");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
