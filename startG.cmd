@@ -1,2 +1,0 @@
-node wwwnew.js
-pause
