@@ -24,6 +24,17 @@ body {
   background-color: red;
   color: white;
 }
+h1 {  
+  text-align: center;  
+  color: #333;  
+  margin-top: 50px;  
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* 文字阴影 */  
+  transition: all 0.3s ease; /* 文字和背景颜色过渡效果 */  
+}  
+
+h1:hover {  
+  color: #555; /* 当鼠标悬停时的文字颜色 */  
+}  
 .nav {
   position: fixed;
   z-index: 999;
