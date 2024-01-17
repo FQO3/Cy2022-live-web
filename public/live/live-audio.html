@@ -10,9 +10,8 @@
    <script src="../gethead.js"></script>
    <div id="header"></div>
    <br><br><br>
-   <h1 style="text-align: center;">朝外2022级学生会直播平台</h1>
    <br>
-   <div id="but">
+   <div id="but" >
         <button class="button center" id="button" onclick="playflv()"><b>观看直播</b></button>
    </div>
    <br>
@@ -24,7 +23,7 @@
            var videoElement = document.getElementById('videoElement');
            var flvPlayer = flvjs.createPlayer({
                type: 'flv',
-               url: 'http://cyxsh.top:8001/live/video.flv'
+               url: 'http://cyxsh.top:8001/live/audio.flv'
            });
            flvPlayer.attachMediaElement(videoElement);
            flvPlayer.load();
