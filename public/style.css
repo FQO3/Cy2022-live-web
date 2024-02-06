@@ -26,12 +26,12 @@ h1 {
   text-align: center;  
   color: #333;  
   margin-top: 50px;  
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* ������Ӱ */  
-  transition: all 0.3s ease; /* ���ֺͱ�����ɫ����Ч�� */  
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
 }  
 
 h1:hover {  
-  color: #c0cbcf; /* �������ͣʱ��������ɫ */  
+  color: #c0cbcf;
 }  
 .nav {
   position: fixed;
@@ -39,8 +39,6 @@ h1:hover {
   height: 60px;
   width: 100%;
   background-image: linear-gradient(#b3ebff, #b2eaff);
-  /*		background: #05BEFF;*/
-  /* box-shadow: 0 0 3px 1px rgb(200, 200, 200); */
 }
 .navlist li {
   float: left;

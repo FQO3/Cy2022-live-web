@@ -1,70 +1,74 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-   <meta charset="UTF-8">  
-   <title>直播页面</title>  
-   <link rel="stylesheet" type="text/css" href="style.css">
-</head>  
-   <script src="flv.min.js"></script>  
-   <h1 style="text-align: center;">朝外2022级学生会直播平台</h1>  
-   <br>  
-   <div id="but">  
-        <button class="button center" id="button" onclick="playflv()"><b>观看直播</b></button>  
-   </div>  
-   <br>  
-   <video id="videoElement" style="display: block; margin: auto;" width="60%" controls></video>  
-   <script>  
-    function playflv(){  
-        document.getElementById('but').style.visibility='hidden';  
-        if (flvjs.isSupported()) {  
-           var videoElement = document.getElementById('videoElement');  
-           var flvPlayer = flvjs.createPlayer({  
-               type: 'flv',  
-               url: 'http://192.168.1.6:8001/live/video.flv'  
-           });  
-           flvPlayer.attachMediaElement(videoElement);  
-           flvPlayer.load();  
-           flvPlayer.play();  
-       }  
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>直播页面</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<script src="flv.min.js"></script>
+<h1 style="text-align: center;">朝外2022级学生会直播平台</h1>
+<br>
+<div id="but">
+    <button class="button center" id="button" onclick="playflv()"><b>观看直播</b></button>
+</div>
+<br>
+<video id="videoElement" style="display: block; margin: auto;" width="60%" controls></video>
+<script>
+    function playflv() {
+        document.getElementById('but').style.visibility = 'hidden';
+        if (flvjs.isSupported()) {
+            var videoElement = document.getElementById('videoElement');
+            var flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                url: 'http://192.168.1.6:8001/live/video.flv'
+            });
+            flvPlayer.attachMediaElement(videoElement);
+            flvPlayer.load();
+            flvPlayer.play();
+        }
     }    
-   </script>  
-     
-   <!-- 添加评论功能 -->  
-   <div id="commentForm">  
-       <label for="class">请选择班级:</label>  
-       <select id="class" onchange="submitComment()">  
-           <option value="">--请选择--</option>  
-           <option value="1">1</option>  
-           <option value="2">2</option>  
-           <!-- 添加更多选项... -->  
-           <option value="18">18</option>  
-       </select>  
-       <br>  
-       <textarea id="comment" placeholder="请输入评论..." rows="4" cols="50"></textarea>  
-       <br>  
-       <button onclick="submitComment()">提交评论</button>  
-   </div>  
-     
-   <div id="comments"></div>   
-     
-   <script> // JavaScript评论功能代码开始于此处。  
-       function submitComment() {  
-           var classValue = document.getElementById('class').value;  
-           var commentValue = document.getElementById('comment').value;  
-           if (classValue && commentValue) { // 检查是否有班级和评论内容。如果两者都有，则显示评论。  
-               var comment = document.createElement('div'); // 创建一个新的div元素作为评论。  
-               comment.innerHTML = `班级: ${classValue}<br>评论: ${commentValue}<br>IP: ${window.location.hostname}`; // 在评论中显示班级、评论和用户IP。  
-               document.getElementById('comments').appendChild(comment); // 将评论添加到评论区域。  
-               clearForm(); // 清空表单。  
-           } else { // 如果缺少班级或评论内容，显示警告。  
-               alert('请先选择班级和输入评论！'); // 弹出警告。  
-           }   // 如果用户未选择班级或未输入评论，此else块将执行。             
-       } // submitComment函数定义结束。           
-         
-       function clearForm() { // 清空表单函数定义。 清除表单内容。             
-           document.getElementById('class').value = ''; // 清空班级选择框。             
-           document.getElementById('comment').value = ''; // 清空评论文本框。             
-       } // clearForm函数定义结束。           
-   </script>   
-</body>   
+</script>
+
+<!-- 添加评论功能 -->
+<div id="commentForm">
+    <label for="class">请选择班级:</label>
+    <select id="class" onchange="submitComment()">
+        <option value="">--请选择--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <!-- 添加更多选项... -->
+        <option value="18">18</option>
+    </select>
+    <br>
+    <textarea id="comment" placeholder="请输入评论..." rows="4" cols="50"></textarea>
+    <br>
+    <button onclick="submitComment()">提交评论</button>
+</div>
+
+<div id="comments"></div>
+
+<script> // JavaScript评论功能代码开始于此处。  
+    function submitComment() {
+        var classValue = document.getElementById('class').value;
+        var commentValue = document.getElementById('comment').value;
+        if (classValue && commentValue) { // 检查是否有班级和评论内容。如果两者都有，则显示评论。  
+            var comment = document.createElement('div'); // 创建一个新的div元素作为评论。  
+            comment.innerHTML = `班级: ${classValue}<br>评论: ${commentValue}<br>IP: ${window.location.hostname}`; // 在评论中显示班级、评论和用户IP。  
+            document.getElementById('comments').appendChild(comment); // 将评论添加到评论区域。  
+            clearForm(); // 清空表单。  
+        } else { // 如果缺少班级或评论内容，显示警告。  
+            alert('请先选择班级和输入评论！'); // 弹出警告。  
+        }   // 如果用户未选择班级或未输入评论，此else块将执行。             
+    } // submitComment函数定义结束。           
+
+    function clearForm() { // 清空表单函数定义。 清除表单内容。             
+        document.getElementById('class').value = ''; // 清空班级选择框。             
+        document.getElementById('comment').value = ''; // 清空评论文本框。             
+    } // clearForm函数定义结束。           
+</script>
+<script src="../getendblock.js"></script>
+<div id="endblock"></div>
+</body>
+
 </html>

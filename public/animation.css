@@ -1,6 +1,6 @@
 canvas {
     display: block;
-    vertical-align: bottom;
+    /* vertical-align: bottom; */
   }
   
   #particles-js {
@@ -15,7 +15,7 @@ canvas {
     /* right: 50%;
     top: 50%;
     transform: translate(50%, -50%); */
-    margin: auto;
+    margin: left;
     color: #fff;
     width: 560px;
     padding: 2em 3em;

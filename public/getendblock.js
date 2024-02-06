@@ -1,4 +1,4 @@
-fetch("http://cyxsh.top:1308/head.html")
+fetch("http://cyxsh.top:1308/endblock.html")
   .then((response) => {
     if(response.redirected)
     {
@@ -16,8 +16,7 @@ fetch("http://cyxsh.top:1308/head.html")
     throw new Error("Network response was not ok.");
   })
   .then((data) => {
-    // 处理获取到的数据
     // console.log(data);
-    var element=document.getElementById("header");
+    var element=document.getElementById("endblock");
     element.innerHTML=data;
   });
