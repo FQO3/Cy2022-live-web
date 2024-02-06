@@ -17,7 +17,7 @@
       text-align: center;
       color: #dddddd;
     }
-  
+
     button {
       margin: auto;
       display: block;
@@ -33,25 +33,104 @@
       cursor: pointer;
       transition-duration: 0.4s;
     }
-  
+
     button:hover {
       background-color: #555;
     }
-  
+
     body {
       background-color: rgb(39, 107, 162);
     }
+
+    section {
+      position: relative;
+      height: 384.6px;
+      width: 600px;
+      /* border: 5px solid rgb(63, 217, 255); */
+      margin: 100px auto;
+      border-radius: 25px;
+    }
+
+    section #img {
+      height: 100%;
+      width: 100%;
+      background-size: 100% 100%;
+      border-radius: 20px;
+    }
+
+    section p {
+      position: absolute;
+      left: 50%;
+      bottom: 0px;
+      transform: translate(-50%, -50%);
+    }
+
+    section i {
+      height: 15px;
+      width: 15px;
+      background-color: gray;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    section i:nth-child(1) {
+      background-color: white;
+    }
+
+    section i:nth-child(4) {
+      margin-right: 0;
+    }
+
+    .left,
+    .right {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 50px;
+      font-weight: bolder;
+      position: absolute;
+      top: 50%;
+      font-weight: 500;
+    }
+
+    .left {
+      left: 0px;
+      transform: translate(15%, -50%);
+    }
+
+    .right {
+      right: 0px;
+      transform: translate(-15%, -50%);
+    }
   </style>
   <div class="text">
-    <br><br>
     <h1>欢迎来到朝外2022级学生会直播平台！</h1><br><br>
-    <div class="center">
-      <button onclick="window.location.href='/live/live1.html'">自定义推流码</button>
-      <button onclick="window.location.href='/live/live2.html'">电视(video)</button>
-      <button onclick="window.location.href='/live/live3.html'">直播3</button>
-      <button onclick="window.location.href='/live/liveT1.html'">内网测试</button>
-      <button onclick="window.location.href='/live/indexTEACH.html'">使用教程</button>
-    </div>
+    <table>
+      <tr>
+        <td width="50%">
+          <div class="center">
+            <button onclick="window.location.href='/live/live1.html'">自定义推流码</button>
+            <button onclick="window.location.href='/live/live2.html'">电视(video)</button>
+            <button onclick="window.location.href='/live/live3.html'">直播3</button>
+            <button onclick="window.location.href='/live/liveT1.html'">内网测试</button>
+            <button onclick="window.location.href='/live/indexTEACH.html'">使用教程</button>
+          </div>
+        </td>
+        <td width="50%">
+          <div>
+            <!--横向滚动框-->
+            <link rel="stylesheet" href="roll.css">
+            <section>
+              <span class="left iconfont icon-anniu_jiantouxiangzuo"></span>
+              <img src="index-pic/badge.png" alt="" id="img">
+              <span class="right iconfont icon-anniu-jiantouxiangyou"></span>
+              <p></p>
+            </section>
+            <script src="/index.js"></script>
+            <!--横向滚动结束-->
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
   <script src='particles.js'></script>
   <script id="rendered-js">
@@ -173,4 +252,5 @@
   <script src="getendblock.js"></script>
   <div id="endblock"></div>
 </body>
+
 </html>
