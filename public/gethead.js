@@ -1,5 +1,14 @@
 fetch("http://cyxsh.top:1308/head.html")
   .then((response) => {
+    if(response.redirected)
+    {
+      let redirectURL=response.url;
+      fetch(redirectURL)
+      .then((response)=>{
+        // console.log(response.text());
+        return response.text();
+      })
+    }
     if (response.ok) {
       // console.log(response.json);
       return response.text();

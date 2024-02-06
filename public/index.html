@@ -1,54 +1,174 @@
 <!DOCTYPE html>
-<html lang="zh"></html>
+<html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <title>首页</title>
+  <link rel="stylesheet" type="text/css" href="animation.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  h1 {
-    text-align: center;
-    color: #333;
-  }
 
-  button {
-    display: block;
-    width: 30%;
-    margin-bottom: 20px;
-    padding: 2%;
-    font-size: 30px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-  }
+<body translate="no">
+  <div id="particles-js"></div>
+  <script src="gethead.js"></script>
+  <div id="header"></div>
+  <style>
+    h1 {
+      text-align: center;
+      color: #dddddd;
+    }
+  
+    button {
+      margin: auto;
+      display: block;
+      width: 300px;
+      height: 80px;
+      margin-bottom: 20px;
+      padding: 2%;
+      font-size: 30px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition-duration: 0.4s;
+    }
+  
+    button:hover {
+      background-color: #555;
+    }
+  
+    body {
+      background-color: rgb(37, 128, 148);
+    }
+  </style>
+  <div class="text">
+    <br><br>
+    <h1>欢迎来到朝外2022级学生会直播平台！</h1><br><br>
+    <div class="center">
+      <button onclick="window.location.href='/live/live1.html'">自定义推流码</button>
+      <button onclick="window.location.href='/live/live2.html'">电视(video)</button>
+      <button onclick="window.location.href='/live/live3.html'">直播3</button>
+      <button onclick="window.location.href='/live/liveT1.html'">内网测试</button>
+      <button onclick="window.location.href='/live/indexTEACH.html'">使用教程</button>
+    </div>
+  </div>
+  <script src='particles.js'></script>
+  <script id="rendered-js">
+    // ParticlesJS Config.
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 700
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
 
-  button:hover {
-    background-color: #555;
-  }
-  body {
-    background-color: rgb(221, 221, 221);
-  }
-</style>
-<body>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="gethead.js"></script>
-    <div id="header"></div>
-    <br><br><br><br>
-  <h1>欢迎来到朝外2022级学生会直播平台！</h1><br><br>
-  <center>
-    <button onclick="window.location.href='/live/live1.html'">自定义推流码</button>
-    <button onclick="window.location.href='/live/live2.html'">电视(video)</button>
-    <button onclick="window.location.href='/live/live3.html'">直播3</button>
-    <button onclick="window.location.href='/live/liveT1.html'">内网测试</button>
-    <button onclick="window.location.href='/live/indexTEACH.html'">使用教程</button>
-  </center>
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 0.1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 10,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 140,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+
+          "push": {
+            "particles_nb": 4
+          },
+
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+  </script>
 </body>
 </html>

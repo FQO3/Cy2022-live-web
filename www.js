@@ -24,6 +24,15 @@ nms.run();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+function setHeaders(req, res, next) {
+  // 设置自定义的响应头信息
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  
+  // 调用next()将控制权传递给下一个中间件或路由处理程序
+  next();
+}
+app.use(setHeaders);
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
