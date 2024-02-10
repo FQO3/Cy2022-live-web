@@ -1,0 +1,240 @@
+@font-face {
+    font-family: kaiti;
+    src: url("/font/simkai.ttf");
+}
+
+body {
+    background-color: rgb(244, 254, 255);
+}
+
+.logo {
+    padding-top: 18px;
+    padding-bottom: 8px;
+    padding-left: 40px;
+    height: 90px;
+}
+
+.name {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    width: 130px;
+    /* height: 50px; */
+}
+
+.nav-text {
+    font-size: 20px;
+}
+
+.bg-logo {
+    position: absolute;
+    top: -165px;
+    left: 720px;
+    width: 1170px;
+    filter: blur(5px);
+    opacity: 0.5;
+    z-index: -999;
+}
+
+.bg-circle {
+    position: absolute;
+    left: 17.4%;
+    top: -3%;
+    height: 33%;
+    opacity: 0.7;
+    z-index: -999;
+}
+
+.rotoImg {
+    animation: rotoImg 10s linear infinite;
+}
+
+@keyframes rotoImg {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*翻滚CSS*/
+html,
+body {
+    height: 100%;
+}
+
+body,
+ul,
+li,
+a,
+p,
+div {
+    /*慎删*/
+    padding: 0px;
+    margin: 0px;
+}
+
+#wrap {
+    overflow: hidden;
+    width: 100%;
+}
+
+#main {
+    top: 0;
+    position: relative;
+}
+
+.page {
+    /*谨删*/
+    width: 100%;
+    margin: 0;
+}
+
+#pageUl {
+    position: fixed;
+    left: 20px;
+}
+
+/* 翻滚结束 */
+.circle-text {
+    position: absolute;
+    left: 50%;
+    padding-top: 50%;
+    transform: translate(-50%, -55%);
+    /* width: 600px; */
+    z-index: 99;
+}
+
+.main-h1 {
+    font-size: 330%;
+    font-weight: 800;
+    text-align: center;
+}
+
+.ver {
+    font-size: large;
+    color: gray;
+    text-align: center;
+}
+
+.main-p {
+    color: rgb(59, 59, 59);
+    font-family: kaiti;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.cp {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: gray;
+    font-weight: 700;
+}
+
+.up {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.up:hover {
+    color: rgb(87, 87, 87);
+}
+
+.down {
+    position: fixed;
+    bottom: 5px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.down:hover {
+    color: rgb(113, 113, 113);
+}
+
+#cpu,
+#cpd {
+    opacity: 0;
+    /* 初始透明度为0 */
+    transition: opacity 1s ease-in-out;
+    /* 设置过渡效果，持续时间为1秒，使用ease-in-out曲线 */
+}
+
+.fadeIn {
+    opacity: 1 !important;
+    /* 最后显示完全不透明 */
+}
+
+.fadeOut {
+    opacity: 0 !important;
+    /* 最后完全隐藏 */
+}
+
+.pg2-ttl {
+    padding-left: 15px;
+    color: white;
+    font-size: 65px;
+    border-left: 5px solid white;
+    font-family: kaiti;
+}
+
+.pg2-sttl {
+    color: white;
+    font-size: 26px;
+    margin-bottom: 40px;
+    font-family: kaiti;
+}
+
+.btn {
+    background-color: rgb(197, 219, 240);
+    border: none;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 30px;
+    text-align: center;
+    width: 130px;
+    transition: 0.2s;
+    color: rgb(106, 151, 202);
+}
+
+.btn:hover {
+    background-color: rgb(218, 227, 236);
+}
+
+.cimg {
+    width: 100%;
+}
+
+.bg-pg3 {
+    background-image: url("/pic/bg-pg3.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100%;
+}
+
+.pg3-ttl {
+    text-align: center;
+    font-size: 35px;
+    color: rgb(95, 109, 118);
+}
+
+#bdg {
+    /* position:absolute; */
+    top: -20px;
+    left: 100px;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+}
+
+.intro {
+    margin-top: 80px;
+    height: 800px;
+    width: 650px;
+    font-size: 18px;
+    line-height: 1.8;
+}

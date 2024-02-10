@@ -21,34 +21,34 @@ const config = {
 const nms = new NodeMediaServer(config);
 nms.run();
 
+//初始化
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+//设置跨域响应头
 function setHeaders(req, res, next) {
-  // 设置自定义的响应头信息
   res.setHeader('Access-Control-Allow-Origin', '*');
-  
-  // 调用next()将控制权传递给下一个中间件或路由处理程序
   next();
 }
 app.use(setHeaders);
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+//网页发送系统
+app.use(function(req,res,next){
+  if(req.path=="/index.html"||req.path=="/"||req.path=="/index"){
+    res.redirect("/index/index.html");
+  }
+  next();
 });
-app.use(express.static("public"));
+app.use(express.static("PC"));
 
+//留言系统
 let comments = []; // Array to store comments
 app.get("/admin", (req, res) => {
   comments = [];
   res.sendStatus(200);
 });
-
 app.get("/comments", (req, res) => {
   res.json(comments);
   // console.log(comments);
 });
-
 app.post("/comments", (req, res) => {
   var { name, comment } = req.body;
   comments.unshift({ name, comment });
@@ -58,6 +58,7 @@ app.post("/comments", (req, res) => {
   console.log(req.body);
 });
 
+//管理员密码系统
 app.post("/admin/adm.html",(req,res)=>{
   const currentTime = new Date();
   today=String(currentTime.getMonth()+1)+String(currentTime.getDate());
@@ -73,6 +74,18 @@ app.post("/admin/adm.html",(req,res)=>{
   }
 });
 
+//开启服务器
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+//系统检查
+function checkPC(req){
+  var agentstr = req.headers['user-agent'].toLowerCase();  // nodejs
+var agentreg = /(iphone|ipod|ipad|android|symbianos|windows phone|playbook|mobile)/;
+var agentph = agentstr.match(agentreg);
+if(agentph){
+  return false;
+}else{
+  return true;
+}
+}

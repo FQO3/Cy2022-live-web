@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(220, 233, 246);
+}
+
+.layui-nav-bar {
+    background-color: rgb(197, 219, 240);
+}
+
+.layui-nav {
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+}
+
+.name {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    width: 130px;
+}
+
+.nav-text {
+    font-size: 20px;
+    color: rgb(154, 176, 191) !important;
+}
