@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>直播测试</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="live.css">
+</head>
+
+<body style="overflow-y: hidden;overflow-x: hidden;">
+    <ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
+		<a href="/index/index.html">
+			<img src="/pic/name-blue.png" alt="朝外学生会" class="name">
+		</a>
+		<li class="layui-nav-item" style="visibility: hidden;">&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+		<li class="layui-nav-item nav1"><a href="/index/index.html?pg=1" class="nav-text">首页</a>
+		</li>
+		<li class="layui-nav-item nav2 layui-this">
+			<a href="/index/index.html?pg=2" class="nav-text">直播</a>
+			<dl class="layui-nav-child">
+				<dd><a href="/live/live1.html">直播1</a></dd>
+				<dd><a href="/live/live2.html">直播2</a></dd>
+				<dd><a href="/live/live3.html">直播3</a></dd>
+				<dd><a href="/live/live4.html">直播4</a></dd>
+			</dl>
+		</li>
+		<li class="layui-nav-item nav3"><a href="/index/index.html?pg=3" class="nav-text">关于我们</a></li>
+		<li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
+		<li class="layui-nav-item"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
+	</ul><br><br><br><br><br>
+    <h1 class="center main-h1">朝外2022级学生会直播平台-直播测试</h1>
+	<center>
+        <div id="but" method="POST" style="margin-bottom: 20px;">
+            <!-- <form><b>请输入推流码: </b><input id="code" type="text" class="code"></form> -->
+            <button class="button" id="button" onclick="playflv()">观看直播</button>
+        </div>
+    </center>
+	<video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="50%" controls></video>
+	<script src="flv.min.js"></script>
+    <script>
+        function playflv() {
+            document.getElementById('but').style.visibility = 'hidden';
+            if (flvjs.isSupported()) {
+                var videoElement = document.getElementById('videoElement');
+                var flvPlayer = flvjs.createPlayer({
+                    type: 'flv',
+                    url: `http://192.168.1.8:8001/live/video.flv`
+                });
+                flvPlayer.attachMediaElement(videoElement);
+                flvPlayer.load();
+                flvPlayer.play();
+            }
+        }  
+    </script>
+	<br><p class="end"><b>本网页自动填充推流码为"video"，推流ip为192.168.1.8:8001/live</b></p>
+	<br><p class="end">注：推流码≈密码，为保证本直播不会被随意观看，<b>请勿外传推流码！</b></p>
+	<br><p class="end">&copy;朝外2022级媒体部。如有问题，请联系二班李昊哲或一班王颢然</p>
+    <ul class="bg-bubbles" style="z-index: -999;">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script src="/layui/layui.js"></script>
+</body>
+</html>

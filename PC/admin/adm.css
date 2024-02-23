@@ -23,3 +23,41 @@ body {
     font-size: 20px;
     color: rgb(154, 176, 191) !important;
 }
+
+.marquee-container {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: black;
+}
+
+.marquee {
+    position: relative;
+    font-size: 20px;
+}
+
+.button {
+    background-color: rgb(146, 184, 228);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 10px 10px;
+    text-align: center;
+    width: 150px;
+    transition: 0.2s;
+    color: #ffffff;
+}
+
+.button:hover {
+    background-color: rgb(166, 194, 226);
+    /* color: #7c8d99; */
+}

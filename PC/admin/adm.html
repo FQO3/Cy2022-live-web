@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <title>管理员登录</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="adm.css">
 </head>
+
 <body>
     <ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
-		<a href="/index/index.html">
-			<img src="/pic/name-blue.png" alt="朝外学生会" class="name">
-		</a>
-		<li class="layui-nav-item" style="visibility: hidden;">&emsp;&emsp;&emsp;&emsp;&emsp;</li>
-		<li class="layui-nav-item nav1"><a href="/index/index.html?pg=1" class="nav-text">首页</a>
-		</li>
-		<li class="layui-nav-item nav2">
-			<a href="/index/index.html?pg=2" class="nav-text">直播</a>
-			<dl class="layui-nav-child">
-				<dd><a href="/live1.html">直播1</a></dd>
-				<dd><a href="/live2.html">直播2</a></dd>
-				<dd><a href="/live3.html">直播3</a></dd>
-				<dd><a href="/live4.html">直播4</a></dd>
-			</dl>
-		</li>
-		<li class="layui-nav-item nav3"><a href="/index/index.html?pg=3" class="nav-text">关于我们</a></li>
-		<li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
-		<li class="layui-nav-item layui-this"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
-	</ul><br><br><br><br><br>
+        <a href="/index/index.html">
+            <img src="/pic/name-blue.png" alt="朝外学生会" class="name">
+        </a>
+        <li class="layui-nav-item" style="visibility: hidden;">&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+        <li class="layui-nav-item nav1"><a href="/index/index.html?pg=1" class="nav-text">首页</a>
+        </li>
+        <li class="layui-nav-item nav2">
+            <a href="/index/index.html?pg=2" class="nav-text">直播</a>
+            <dl class="layui-nav-child">
+                <dd><a href="/live/live1.html">直播1</a></dd>
+                <dd><a href="/live/live2.html">直播2</a></dd>
+                <dd><a href="/live/live3.html">直播3</a></dd>
+                <dd><a href="/live/live4.html">直播4</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item nav3"><a href="/index/index.html?pg=3" class="nav-text">关于我们</a></li>
+        <li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
+        <li class="layui-nav-item layui-this"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
+    </ul><br><br><br><br><br>
     <center>
         <h1>管理员控制台，闲人勿进</h1><br>
         <p>密码每日更新且有ip记录，请勿破解，谢谢</p><br><br>
         <input type="password" id="password">
         <button onclick="checkPassword()">确认</button><br>
-        <h2 id="tips"></h2>
+        <h2 id="tips"></h2><br><br><br>
+        <a href="/live/liveT.html"><button class="button">内网测试页面</button></a>
     </center>
+    <div class="marquee-container" style="margin-top: 160px;">
+        <div style="overflow:hidden;white-space:nowrap;">
+            <marquee behaviour="scroll" direction="left" scrollamount="10">
+                <span style="font-size: x-large;background-color: rgb(255, 251, 0); "> ////////// ⚠FBI WARING⚠ 管理员及开发者页面，闲人勿进! \\\\\\\\\\</span>
+            </marquee>
+        </div>
+    </div>
     <script>
         function checkPassword() {
             pass = '?pass=' + String(document.getElementById("password").value);
@@ -57,4 +67,5 @@
     <script src="/jquery.min.js"></script>
     <script src="/layui/layui.js"></script>
 </body>
+
 </html>
