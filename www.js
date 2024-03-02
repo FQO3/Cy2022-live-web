@@ -82,7 +82,7 @@ const viewer = {
 app.post("/api/url/:id", async (req, res) => {
   viewer.viewer = 999;
   var code = req.params;
-  viewer.url = `http://cyxsh.top:8001/live/${code.id}`;
+  viewer.url = `http://cyxsh.top:8001/live/${code.id}.flv`;
   const promises = subserver.map(async num => {
     if (num == mainserver) {
       await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
@@ -94,6 +94,9 @@ app.post("/api/url/:id", async (req, res) => {
   await Promise.all(promises);
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(`为${ipAddress}分配使用${viewer.url}`);
+
+  if(viewer.url.includes("cyxsh"))  viewer.url=`http://127.0.0.1:8001/live/${code.id}.flv`
+
   res.send(viewer.url);
 });
 

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
+
 <head>
-    <meta charset="UTF-8">
-    <title>直播2</title>
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link rel="stylesheet" href="live.css">
+	<meta charset="UTF-8">
+	<title>直播2</title>
+	<link rel="stylesheet" href="/layui/css/layui.css">
+	<link rel="stylesheet" href="live.css">
 </head>
 
-<body style="overflow-y: hidden;overflow-x: hidden;">
-    <ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
+<body translate="no" style="overflow-y: hidden;overflow-x: hidden;">
+	<ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
 		<a href="/index/index.html">
 			<img src="/pic/name-blue.png" alt="朝外学生会" class="name">
 		</a>
@@ -28,34 +29,47 @@
 		<li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
 		<li class="layui-nav-item"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
 	</ul><br><br><br><br><br>
-    <h1 class="center main-h1">朝外2022级学生会直播平台-直播2</h1>
+	<h1 class="center main-h1">朝外2022级学生会直播平台-直播2</h1>
 	<center>
-        <div id="but" method="POST" style="margin-bottom: 20px;">
-            <!-- <form><b>请输入推流码: </b><input id="code" type="text" class="code"></form> -->
-            <button class="button" id="button" onclick="playflv()">观看直播</button>
-        </div>
-    </center>
+		<div id="but" method="POST">
+			<!-- <form><b>请输入推流码: </b><input id="code" type="text" class="code"></form> -->
+			<button class="button" id="button" onclick="geturl()">观看直播</button>
+		</div>
+	</center>
 	<video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="50%" controls></video>
 	<script src="flv.min.js"></script>
-    <script>
-        function playflv() {
-            document.getElementById('but').style.visibility = 'hidden';
-            if (flvjs.isSupported()) {
-                var videoElement = document.getElementById('videoElement');
-                var flvPlayer = flvjs.createPlayer({
-                    type: 'flv',
-                    url: `http://cyxsh.top:8001/live/video.flv`
-                });
-                flvPlayer.attachMediaElement(videoElement);
-                flvPlayer.load();
-                flvPlayer.play();
-            }
-        }  
-    </script>
+	<script>
+		function geturl() {
+			document.getElementById('but').style.visibility = 'hidden';
+			var code = "video";
+			console.log(code);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					playflv(this.responseText);
+				}
+			};
+			xhttp.open("POST", `/api/url/${code}`, true);
+			xhttp.send();
+		}
+		function playflv(url) {
+			if (flvjs.isSupported()) {
+				var videoElement = document.getElementById('videoElement');
+				var flvPlayer = flvjs.createPlayer({
+					type: 'flv',
+					url: url
+				});
+				flvPlayer.attachMediaElement(videoElement);
+				flvPlayer.load();
+				flvPlayer.play();
+			}
+		}  
+	</script>
+	<br>
 	<br><p class="end"><b>本网页自动填充推流码为"video"</b></p>
 	<br><p class="end">注：推流码≈密码，为保证本直播不会被随意观看，<b>请勿外传推流码！</b></p>
 	<br><p class="end">&copy;朝外2022级媒体部。如有问题，请联系二班李昊哲或一班王颢然</p>
-    <ul class="bg-bubbles" style="z-index: -999;">
+	<ul class="bg-bubbles" style="z-index: -999;">
 		<li></li>
 		<li></li>
 		<li></li>
@@ -69,4 +83,5 @@
 	</ul>
 	<script src="/layui/layui.js"></script>
 </body>
+
 </html>
