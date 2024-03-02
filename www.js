@@ -92,7 +92,8 @@ app.post("/api/url/:id", async (req, res) => {
     }
   });
   await Promise.all(promises);
-  console.log(viewer.url);
+  const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(`为${ipAddress}分配使用${viewer.url}`);
   res.send(viewer.url);
 });
 
@@ -100,11 +101,9 @@ async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
     request.get({ url: url, timeout: 5000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(domain + body);
         var helth = JSON.parse(body);
-        console.log(helth.isLive + " " + helth.viewers + " " + viewer.viewer);
+        console.log(`${domain}观看人数: ${helth.viewers}人`);
         if (helth.isLive && helth.viewers < viewer.viewer) {
-          console.log("in");
           viewer.url = `${domain}:8001/live/${code}.flv`;
           viewer.viewer = helth.viewers;
         }
