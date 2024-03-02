@@ -4,8 +4,8 @@ const app = express();
 const NodeMediaServer = require("node-media-server");
 const request = require("request");
 const port = 1308;
-const mainserver = "http://cyxsh.top";
-const subserver = ["http://fqo3.site", "http://cyxsh.top"];
+const mainserver = "http://127.0.0.1";
+const subserver = ["http://fqo3.site", "http://127.0.0.1"];
 //开启推流服务器
 const config = {
   rtmp: {
