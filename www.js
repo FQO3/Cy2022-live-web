@@ -95,7 +95,7 @@ app.post("/api/url/:id", async (req, res) => {
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(`为${ipAddress}分配使用${viewer.url}`);
 
-  if(viewer.url.includes("cyxsh"))  viewer.url=`http://127.0.0.1:8001/live/${code.id}.flv`
+  if(viewer.url.includes("cyxsh"))  viewer.url=`http://192.168.1.8:8001/live/${code.id}.flv`
 
   res.send(viewer.url);
 });
@@ -127,7 +127,6 @@ async function asksub(url, domain, code) {
     });
   });
 }
-
 //开启服务器
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
