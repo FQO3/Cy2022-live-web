@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const NodeMediaServer = require("node-media-server");
+const request = require("request");
 const port = 1308;
-
+const mainserver = "http://cyxsh.top";
+const subserver = ["http://fqo3.site", "http://cyxsh.top"];
 //开启推流服务器
 const config = {
   rtmp: {
@@ -31,8 +33,8 @@ function setHeaders(req, res, next) {
 }
 app.use(setHeaders);
 //网页发送系统
-app.use(function(req,res,next){
-  if(req.path=="/index.html"||req.path=="/"||req.path=="/index"){
+app.use(function (req, res, next) {
+  if (req.path == "/index.html" || req.path == "/" || req.path == "/index") {
     res.redirect("/index/index.html");
   }
   next();
@@ -59,33 +61,89 @@ app.post("/comments", (req, res) => {
 });
 
 //管理员密码系统
-app.post("/admin/adm.html",(req,res)=>{
+app.post("/admin/adm.html", (req, res) => {
   const currentTime = new Date();
-  today=String(currentTime.getMonth()+1)+String(currentTime.getDate());
+  today = String(currentTime.getMonth() + 1) + String(currentTime.getDate());
   console.log(today);
-  pass=req.query.pass;
+  pass = req.query.pass;
   console.log(pass);
-  if(pass==today)
-  {
+  if (pass == today) {
     res.status(200).send("AdminWebset.html");
   }
-  else{
+  else {
     res.status(200).send("密码错误");
   }
 });
+const viewer = {
+  url: '',
+  viewer: 999
+};
+viewer.viewer = 999;
+app.post("/api/url/:id", async (req, res) => {
+  var code = req.params;
+  const promises = subserver.map(num => asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id));
+  await Promise.all(promises);
+  console.log(viewer.url);
+  res.send(viewer.url);
+});
+
+async function asksub(url, domain, code) {
+  return new Promise((resolve, reject) => {
+    request.get({ url: url }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+        var helth = JSON.parse(body);
+        console.log(helth.isLive + " " + helth.viewers + " " + viewer.viewer);
+        if (helth.isLive && helth.viewers < viewer.viewer) {
+          console.log("in");
+          viewer.url = `${domain}:8001/live/${code}.flv`;
+          viewer.viewer = helth.viewers;
+        }
+        resolve();
+      } else {
+        reject(error);
+      }
+    });
+  });
+}
+
+// app.post("/api/url/:id", (req, res) => {
+//   var code = req.params;
+//   console.log(code);
+//   subserver.forEach((num) => {
+//     asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
+//   });
+//   console.log(viewer.url);
+//   res.send(viewer.url);
+// });
+// function asksub(url, domain, code) {
+//   console.log(url);
+//   request.get({ url: url }, function (error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//       console.log(body);
+//       var helth = JSON.parse(body);
+//       if (helth.isLive && helth.viewers < viewer.viewer) {
+//         console.log("in");
+//         viewer.url = `${domain}:1308/live/${code}`;
+//       }
+//     } else {
+//       console.warn(error);
+//     }
+//   })
+// }
 
 //开启服务器
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 //系统检查
-function checkPC(req){
+function checkPC(req) {
   var agentstr = req.headers['user-agent'].toLowerCase();  // nodejs
-var agentreg = /(iphone|ipod|ipad|android|symbianos|windows phone|playbook|mobile)/;
-var agentph = agentstr.match(agentreg);
-if(agentph){
-  return false;
-}else{
-  return true;
-}
+  var agentreg = /(iphone|ipod|ipad|android|symbianos|windows phone|playbook|mobile)/;
+  var agentph = agentstr.match(agentreg);
+  if (agentph) {
+    return false;
+  } else {
+    return true;
+  }
 }
