@@ -4,8 +4,8 @@ const app = express();
 const NodeMediaServer = require("node-media-server");
 const request = require("request");
 const port = 1308;
-const mainserver = "http://127.0.0.1";
-const subserver = ["http://fqo3.site", "http://127.0.0.1"];
+const mainserver = "http://cyxsh.top";
+const subserver = ["http://fqo3.site", "http://cyxsh.top"];
 //开启推流服务器
 const config = {
   rtmp: {
@@ -81,7 +81,10 @@ const viewer = {
 viewer.viewer = 999;
 app.post("/api/url/:id", async (req, res) => {
   var code = req.params;
-  const promises = subserver.map(num => asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id));
+  const promises = subserver.map(num => {
+    if(num==mainserver) asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
+    else asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
+  });
   await Promise.all(promises);
   console.log(viewer.url);
   res.send(viewer.url);
@@ -91,7 +94,7 @@ async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
     request.get({ url: url }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(body);
+        console.log(domain+body);
         var helth = JSON.parse(body);
         console.log(helth.isLive + " " + helth.viewers + " " + viewer.viewer);
         if (helth.isLive && helth.viewers < viewer.viewer) {
