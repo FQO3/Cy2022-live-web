@@ -4,7 +4,8 @@ const app = express();
 const NodeMediaServer = require("node-media-server");
 const request = require("request");
 const port = 1308;
-const mainserver = "http://cyxsh.top";
+// const mainserver = "http://cyxsh.top";
+const mainserver = "http:/fqo3.site";
 const subserver = ["http://fqo3.site", "http://cyxsh.top"];
 //开启推流服务器
 const config = {
@@ -78,12 +79,16 @@ const viewer = {
   url: '',
   viewer: 999
 };
-viewer.viewer = 999;
 app.post("/api/url/:id", async (req, res) => {
+  viewer.viewer = 999;
   var code = req.params;
-  const promises = subserver.map(num => {
-    if(num==mainserver) asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
-    else asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
+  const promises = subserver.map(async num => {
+    if(num==mainserver) {
+      await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
+    }
+    else {
+      await asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
+    }
   });
   await Promise.all(promises);
   console.log(viewer.url);
