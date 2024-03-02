@@ -82,8 +82,9 @@ const viewer = {
 app.post("/api/url/:id", async (req, res) => {
   viewer.viewer = 999;
   var code = req.params;
+  viewer.url = `http://cyxsh.top:8001/live/${code.id}`;
   const promises = subserver.map(async num => {
-    if(num==mainserver) {
+    if (num == mainserver) {
       await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
     }
     else {
@@ -97,15 +98,25 @@ app.post("/api/url/:id", async (req, res) => {
 
 async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
-    request.get({ url: url }, function (error, response, body) {
+    request.get({ url: url, timeout: 1000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(domain+body);
+        console.log(domain + body);
         var helth = JSON.parse(body);
         console.log(helth.isLive + " " + helth.viewers + " " + viewer.viewer);
         if (helth.isLive && helth.viewers < viewer.viewer) {
           console.log("in");
           viewer.url = `${domain}:8001/live/${code}.flv`;
           viewer.viewer = helth.viewers;
+        }
+        else if (!helth.isLive) {
+          request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 1000 }, (error, response) => {
+            if (!error && response.statusCode === 200) {
+              console.log(`【成功】为子服${domain}创建${code}流`);
+            } else {
+              console.warn(`为子服${domain}创建${code}流【失败】`);
+              console.log(error || response.statusMessage);
+            }
+          });
         }
         resolve();
       } else {
@@ -114,31 +125,6 @@ async function asksub(url, domain, code) {
     });
   });
 }
-
-// app.post("/api/url/:id", (req, res) => {
-//   var code = req.params;
-//   console.log(code);
-//   subserver.forEach((num) => {
-//     asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
-//   });
-//   console.log(viewer.url);
-//   res.send(viewer.url);
-// });
-// function asksub(url, domain, code) {
-//   console.log(url);
-//   request.get({ url: url }, function (error, response, body) {
-//     if (!error && response.statusCode == 200) {
-//       console.log(body);
-//       var helth = JSON.parse(body);
-//       if (helth.isLive && helth.viewers < viewer.viewer) {
-//         console.log("in");
-//         viewer.url = `${domain}:1308/live/${code}`;
-//       }
-//     } else {
-//       console.warn(error);
-//     }
-//   })
-// }
 
 //开启服务器
 app.listen(port, () => {
