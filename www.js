@@ -95,14 +95,14 @@ app.post("/api/url/:id", async (req, res) => {
   const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(`为${ipAddress}分配使用${viewer.url}`);
 
-  if(viewer.url.includes("cyxsh"))  viewer.url=`http://192.168.1.8:8001/live/${code.id}.flv`
+  // if(viewer.url.includes("cyxsh"))  viewer.url=`http://192.168.1.8:8001/live/${code.id}.flv`
 
   res.send(viewer.url);
 });
 
 async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
-    request.get({ url: url, timeout: 5000 }, function (error, response, body) {
+    request.get({ url: url, timeout: 3000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var helth = JSON.parse(body);
         console.log(`${domain}观看人数: ${helth.viewers}人`);
@@ -111,7 +111,7 @@ async function asksub(url, domain, code) {
           viewer.viewer = helth.viewers;
         }
         else if (!helth.isLive) {
-          request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 5000 }, (error, response) => {
+          request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 3000 }, (error, response) => {
             if (!error && response.statusCode === 200) {
               console.log(`【成功】为子服${domain}创建${code}流`);
             } else {
@@ -120,10 +120,14 @@ async function asksub(url, domain, code) {
             }
           });
         }
-        resolve();
-      } else {
-        reject(error);
-      }
+        // resolve();
+      } 
+      // else {
+      //   reject(error);
+      // }
+    })
+    .on('error', (error) => {
+      console.log(`无法连接至${domain}，或连接超时`);
     });
   });
 }
