@@ -1,11 +1,11 @@
-const express = require("express");
+﻿const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const NodeMediaServer = require("node-media-server");
 const request = require("request");
 const port = 1308;
-// const mainserver = "http://cyxsh.top";
-const mainserver = "http:/fqo3.site";
+const mainserver = "http://cyxsh.top";
+// const mainserver = "http:/fqo3.site";
 const subserver = ["http://fqo3.site", "http://cyxsh.top"];
 //开启推流服务器
 const config = {
@@ -98,7 +98,7 @@ app.post("/api/url/:id", async (req, res) => {
 
 async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
-    request.get({ url: url, timeout: 1000 }, function (error, response, body) {
+    request.get({ url: url, timeout: 5000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(domain + body);
         var helth = JSON.parse(body);
@@ -109,7 +109,7 @@ async function asksub(url, domain, code) {
           viewer.viewer = helth.viewers;
         }
         else if (!helth.isLive) {
-          request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 1000 }, (error, response) => {
+          request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 5000 }, (error, response) => {
             if (!error && response.statusCode === 200) {
               console.log(`【成功】为子服${domain}创建${code}流`);
             } else {
