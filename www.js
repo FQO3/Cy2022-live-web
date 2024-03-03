@@ -6,7 +6,11 @@ const request = require("request");
 const port = 1308;
 const mainserver = "http://cyxsh.top";
 // const mainserver = "http:/fqo3.site";
-const subserver = ["http://pdx.cyxsh.top","http://las.cyxsh.top","http://fqo3.site", "http://cyxsh.top"];
+const subserver = ["http://pdx.cyxsh.top", "http://lax.cyxsh.top", "http://fqo3.site", "http://cyxsh.top"];
+let fwq = 40000;
+let zb = 4320;
+let maxnum = Math.floor(fwq / zb);
+console.log(`内陆服最大观看人数：${maxnum}人`);
 //开启推流服务器
 const config = {
   rtmp: {
@@ -106,7 +110,10 @@ async function asksub(url, domain, code) {
       if (!error && response.statusCode == 200) {
         var helth = JSON.parse(body);
         console.log(`${domain}观看人数: ${helth.viewers}人`);
-        if (helth.isLive && helth.viewers < viewer.viewer) {
+        if (helth.isLive && ((domain == "http://fqo3.site" && helth.viewers > maxnum) || (domain == "http://cyxsh.top") && helth.viewers > maxnum-2)) {
+          console.log(`${domain}的观看人数已满，跳过分配`);
+        }
+        else if (helth.isLive && helth.viewers < viewer.viewer) {
           viewer.url = `${domain}:8001/live/${code}.flv`;
           viewer.viewer = helth.viewers;
         }
@@ -121,14 +128,14 @@ async function asksub(url, domain, code) {
           });
         }
         // resolve();
-      } 
+      }
       // else {
       //   reject(error);
       // }
     })
-    .on('error', (error) => {
-      console.log(`无法连接至${domain}，或连接超时`);
-    });
+      .on('error', (error) => {
+        console.log(`无法连接至${domain}，或连接超时`);
+      });
   });
 }
 //开启服务器
