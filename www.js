@@ -116,6 +116,7 @@ async function asksub(url, domain, code) {
         else if (helth.isLive && helth.viewers < viewer.viewer) {
           viewer.url = `${domain}:8001/live/${code}.flv`;
           viewer.viewer = helth.viewers;
+          // console.log("in"+domain);
         }
         else if (!helth.isLive) {
           request.post({ url: `${domain}:1308/api/create/${code}`, timeout: 3000 }, (error, response) => {
@@ -127,7 +128,7 @@ async function asksub(url, domain, code) {
             }
           });
         }
-        // resolve();
+        resolve();
       }
       // else {
       //   reject(error);
