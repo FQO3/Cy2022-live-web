@@ -6,7 +6,7 @@ const request = require("request");
 const port = 1308;
 const mainserver = "http://cyxsh.top";
 // const mainserver = "http:/fqo3.site";
-const subserver = ["http://fqo3.site", "http://cyxsh.top"];
+const subserver = ["http://pdx.cyxsh.top","http://las.cyxsh.top","http://fqo3.site", "http://cyxsh.top"];
 //开启推流服务器
 const config = {
   rtmp: {
@@ -115,7 +115,7 @@ async function asksub(url, domain, code) {
             if (!error && response.statusCode === 200) {
               console.log(`【成功】为子服${domain}创建${code}流`);
             } else {
-              console.warn(`为子服${domain}创建${code}流【失败】`);
+              console.log(`为子服${domain}创建${code}流【失败】`);
               console.log(error || response.statusMessage);
             }
           });
