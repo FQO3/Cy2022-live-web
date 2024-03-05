@@ -106,7 +106,7 @@ app.post("/api/url/:id", async (req, res) => {
 
 async function asksub(url, domain, code) {
   return new Promise((resolve, reject) => {
-    request.get({ url: url, timeout: 3000 }, function (error, response, body) {
+    request.get({ url: url, timeout: 1000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var helth = JSON.parse(body);
         console.log(`${domain}观看人数: ${helth.viewers}人`);
@@ -128,15 +128,14 @@ async function asksub(url, domain, code) {
             }
           });
         }
-        resolve();
       }
+      resolve();
       // else {
       //   reject(error);
       // }
-    })
-      .on('error', (error) => {
-        console.log(`无法连接至${domain}，或连接超时`);
-      });
+    }).on('error', (error) => {
+      console.log(`无法连接至${domain}，或连接超时`);
+    });
   });
 }
 //开启服务器
