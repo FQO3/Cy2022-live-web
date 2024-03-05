@@ -110,7 +110,7 @@ async function asksub(url, domain, code) {
       if (!error && response.statusCode == 200) {
         var helth = JSON.parse(body);
         console.log(`${domain}观看人数: ${helth.viewers}人`);
-        if (helth.isLive && ((domain == "http://fqo3.site" && helth.viewers > maxnum) || (domain == "http://cyxsh.top") && helth.viewers > maxnum-2)) {
+        if (helth.isLive && ((domain == "http://fqo3.site" && helth.viewers > maxnum) || (domain == "http://cyxsh.top") && helth.viewers > maxnum - 2)) {
           console.log(`${domain}的观看人数已满，跳过分配`);
         }
         else if (helth.isLive && helth.viewers < viewer.viewer) {
