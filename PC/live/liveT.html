@@ -33,6 +33,12 @@
 	<center>
 		<div id="but" method="POST">
 			<form><b>请输入推流码: </b><input id="code" type="text" class="code"></form>
+			<select id="select">
+				<option value="http://cyxsh.top:8001/live/" selected="selected">cyxsh.top</option>
+				<option value="http://fqo3.site:8001/live/">fqo3.site</option>
+				<option value="http://pdx.cyxsh.top:8001/live/">美服pdx</option>
+				<option value="http://lax.cyxsh.top:8001/live/">美服lax</option>
+			</select>
 			<button class="button" id="button" onclick="playflv()">观看直播</button>
 		</div>
 	</center>
@@ -56,9 +62,12 @@
 		function playflv(url) {
 			if (flvjs.isSupported()) {
 				var videoElement = document.getElementById('videoElement');
+				var code = document.getElementById('code').value;
+				var url = document.getElementById("select").value;
+				document.getElementById('domain').innerHTML = `${url}${code}.flv`;
 				var flvPlayer = flvjs.createPlayer({
 					type: 'flv',
-					url: 'http://lax.cyxsh.top:8001/live/video.flv'
+					url: `${url}${code}.flv`
 				});
 				flvPlayer.attachMediaElement(videoElement);
 				flvPlayer.load();
@@ -68,7 +77,8 @@
 	</script>
 	<br>
 	<p class="end"><b>推流码已下发，请您关注微信通知</b></p>
-	<br><p class="end" id="domain">N/A</p>
+	<br>
+	<p class="end" id="domain">N/A</p>
 	<br>
 	<p class="end">&copy;朝外2022级媒体部。如有问题，请联系二班李昊哲或一班王颢然</p>
 	<ul class="bg-bubbles" style="z-index: -999;">
