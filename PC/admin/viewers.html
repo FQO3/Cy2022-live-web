@@ -18,19 +18,19 @@
         <h1 id="h1">推流码：video</h1>
         <div style="background-color: red;color: white;" id="1" class="box">
             <h2>cyxsh.top（王）</h2>
-            <p id="1-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+            <p id="1-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Akbps; 直播时长: N/A秒; 开始时间: N/A</p>
         </div>
         <div style="background-color: red;color: white;" id="2" class="box">
             <h2>fqo3.site（李）</h2>
-            <p id="2-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+            <p id="2-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Akbps; 直播时长: N/A秒; 开始时间: N/A</p>
         </div>
         <div style="background-color: red;color: white;" id="3" class="box">
             <h2>lax.cyxsh.top（范）</h2>
-            <p id="3-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+            <p id="3-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Akbps; 直播时长: N/A秒; 开始时间: N/A</p>
         </div>
         <div style="background-color: red;color: white;" id="4" class="box">
             <h2>pdx.cyxsh.top（王）</h2>
-            <p id="4-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+            <p id="4-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Akbps; 直播时长: N/A秒; 开始时间: N/A</p>
         </div>
     </div>
 </body>
@@ -48,7 +48,7 @@
                 .then(data => {
                     health = JSON.parse(data);
                     document.getElementById(val+1).style.backgroundColor = 'green';
-                    document.getElementById(`${val+1}-p`).innerHTML = `是否推流: ${health.isLive}; 观看人数: ${health.viewers}人; 码率: ${health.bitrate}mbps; 直播时长: ${health.duration}秒; 开始时间: ${health.startTime}`
+                    document.getElementById(`${val+1}-p`).innerHTML = `是否推流: ${health.isLive}; 观看人数: ${health.viewers}人; 码率: ${health.bitrate}kbps; 直播时长: ${health.duration}秒; 开始时间: ${health.startTime}`
                 })
                 .catch(error => {
                     console.log(key);
