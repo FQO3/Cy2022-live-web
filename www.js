@@ -73,7 +73,7 @@ app.post("/admin/adm.html", (req, res) => {
   pass = req.query.pass;
   console.log(pass);
   if (pass == today) {
-    res.status(200).send("AdminWebset.html");
+    res.status(200).send("viewers.html");
   }
   else {
     res.status(200).send("密码错误");
