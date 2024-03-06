@@ -1,36 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <title>用户观看分布</title>
 </head>
+<style>
+    .box{
+        width: auto;
+        height: 150px;
+        font-size: 20px;
+    }
+</style>
 <body>
     <div>
-        <h1>Video</h1>
-        <div>
-            <h2>lax.cyxsh.top（范）</h2>
-            <iframe src="http://lax.cyxsh.top:8001/api/streams/live/video" frameborder="0" style="width: 100%;" id="if1"></iframe>
-        </div>
-        <div>
-            <h2>pdx.cyxsh.top（王）</h2>
-            <iframe src="http://pdx.cyxsh.top:8001/api/streams/live/video" frameborder="0" style="width: 100%;" id="if2"></iframe>
-        </div>
-        <div>
-            <h2>fqo3.site（李）</h2>
-            <iframe src="http://fqo3.site:8001/api/streams/live/video" frameborder="0" style="width: 100%;" id="if3"></iframe>
-        </div>
-        <div>
+        <p>推流码：<input type="text" id="input"><button onclick="getcode()">确认</button><button onclick="activate()">激活</button></p>
+        <h1 id="h1">推流码：video</h1>
+        <div style="background-color: red;color: white;" id="1" class="box">
             <h2>cyxsh.top（王）</h2>
-            <iframe src="http://cyxsh.top:8001/api/streams/live/video" frameborder="0" style="width: 100%;" id="if4"></iframe>
+            <p id="1-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+        </div>
+        <div style="background-color: red;color: white;" id="2" class="box">
+            <h2>fqo3.site（李）</h2>
+            <p id="2-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+        </div>
+        <div style="background-color: red;color: white;" id="3" class="box">
+            <h2>lax.cyxsh.top（范）</h2>
+            <p id="3-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
+        </div>
+        <div style="background-color: red;color: white;" id="4" class="box">
+            <h2>pdx.cyxsh.top（王）</h2>
+            <p id="4-p">是否推流: N/A; 观看人数: N/A人; 码率: N/Ambps; 直播时长: N/A秒; 开始时间: N/A</p>
         </div>
     </div>
 </body>
 <script>
+    const serverlist = ["cyxsh.top", "fqo3.site", "lax.cyxsh.top", "pdx.cyxsh.top"];
+    var code = "video";
+    document.getElementById("input").value = "video";
+    function getcode() {
+        code = document.getElementById("input").value;
+        document.getElementById("h1").innerHTML = "推流码：" + code;
+    }
     setInterval(() => {
-    document.getElementById("if1").src = document.getElementById("if1").src;
-    document.getElementById("if2").src = document.getElementById("if2").src;
-    document.getElementById("if3").src = document.getElementById("if3").src;
-    document.getElementById("if4").src = document.getElementById("if4").src;
-  }, 1000);
+        serverlist.forEach((key, val) => {
+            getFromServer(`http://${key}:8001/api/streams/live/${code}`)
+                .then(data => {
+                    health = JSON.parse(data);
+                    document.getElementById(val+1).style.backgroundColor = 'green';
+                    document.getElementById(`${val+1}-p`).innerHTML = `是否推流: ${health.isLive}; 观看人数: ${health.viewers}人; 码率: ${health.bitrate}mbps; 直播时长: ${health.duration}秒; 开始时间: ${health.startTime}`
+                })
+                .catch(error => {
+                    console.log(key);
+                    document.getElementById(val+1).style.backgroundColor = 'red';
+                })
+        });
+    }, 1000);
+    function activate(){
+        postreq(`http://cyxsh.top:1308/api/url/${code}`);
+    }
+    function postreq(url) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", url);
+        xhttp.send();
+    }
+    function getFromServer(url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.onload = () => {
+                if (xhr.readyState == 4 && xhr.status === 200) {
+                    resolve(xhr.responseText);
+                } else {
+                    reject(xhr.statusText);
+                }
+            };
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send();
+        });
+    }
 </script>
+
 </html>
