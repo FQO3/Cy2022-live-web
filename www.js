@@ -69,9 +69,7 @@ app.post("/comments", (req, res) => {
 app.post("/admin/adm.html", (req, res) => {
   const currentTime = new Date();
   today = String(currentTime.getMonth() + 1) + String(currentTime.getDate());
-  console.log(today);
   pass = req.query.pass;
-  console.log(pass);
   if (pass == today) {
     res.status(200).send("viewers.html");
   }
