@@ -6,11 +6,11 @@ const request = require("request");
 const port = 1308;
 const mainserver = "http://cyxsh.top";
 // const mainserver = "http:/fqo3.site";
-const subserver = ["http://pdx.cyxsh.top", "http://lax.cyxsh.top", "http://fqo3.site", "http://cyxsh.top"];
-let fwq = 40000;
-let zb = 4320;
-let maxnum = Math.floor(fwq / zb);
-console.log(`内陆服最大观看人数：${maxnum}人`);
+const subserver = ["http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site", "http://cyxsh.top"];
+const uploadsubserver = [80, 80, 40, 40];
+const view = [];
+const stream = 4320;
+const backup = ["http://pdx.cyxsh.top", "http://lax.cyxsh.top"];
 //开启推流服务器
 const config = {
   rtmp: {
@@ -85,12 +85,12 @@ app.post("/api/url/:id", async (req, res) => {
   viewer.viewer = 999;
   var code = req.params;
   viewer.url = `http://cyxsh.top:8001/live/${code.id}.flv`;
-  const promises = subserver.map(async num => {
+  const promises = subserver.map(async (num, index) => {
     if (num == mainserver) {
-      await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id);
+      await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id, index);
     }
     else {
-      await asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id);
+      await asksub(`${num}:8001/api/streams/live/${code.id}`, num, code.id, index);
     }
   });
   await Promise.all(promises);
@@ -102,13 +102,13 @@ app.post("/api/url/:id", async (req, res) => {
   res.send(viewer.url);
 });
 
-async function asksub(url, domain, code) {
+async function asksub(url, domain, code, index) {
   return new Promise((resolve, reject) => {
     request.get({ url: url, timeout: 1000 }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var helth = JSON.parse(body);
         console.log(`${domain}观看人数: ${helth.viewers}人`);
-        if (helth.isLive && ((domain == "http://fqo3.site" && helth.viewers > maxnum) || (domain == "http://cyxsh.top") && helth.viewers > maxnum - 2)) {
+        if (helth.isLive && helth.viewers >= view[index]) {
           console.log(`${domain}的观看人数已满，跳过分配`);
         }
         else if (helth.isLive && helth.viewers < viewer.viewer) {
@@ -128,9 +128,6 @@ async function asksub(url, domain, code) {
         }
       }
       resolve();
-      // else {
-      //   reject(error);
-      // }
     }).on('error', (error) => {
       console.log(`无法连接至${domain}，或连接超时`);
     });
@@ -139,6 +136,10 @@ async function asksub(url, domain, code) {
 //开启服务器
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  uploadsubserver.map((num, index) => {
+    view[index] = Math.floor(num * 1024 / stream);
+  });
+  console.log(view);
 });
 //系统检查
 function checkPC(req) {
