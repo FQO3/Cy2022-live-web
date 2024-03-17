@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="course.css">
+    <title>赛程展示</title>
+</head>
+
+<body translate="no" style="overflow:hidden">
+    <ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
+        <a href="/index/index.html">
+            <img src="/pic/name-blue.png" alt="朝外学生会" class="name">
+        </a>
+        <li class="layui-nav-item" style="visibility: hidden;">&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+        <li class="layui-nav-item nav1"><a href="/index/index.html?pg=1" class="nav-text">首页</a>
+        </li>
+        <li class="layui-nav-item nav2 layui-this">
+            <a href="/index/index.html?pg=2" class="nav-text">直播</a>
+            <dl class="layui-nav-child">
+                <dd><a href="/live/live1.html">直播1</a></dd>
+                <dd><a href="/live/live2.html">直播2</a></dd>
+                <dd><a href="/live/live3.html">直播3</a></dd>
+                <dd><a href="/live/live4.html">直播4</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item nav3"><a href="/index/index.html?pg=3" class="nav-text">关于我们</a></li>
+        <li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
+        <li class="layui-nav-item"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
+    </ul><br><br><br><br>
+    <h1 class="center main-h1">赛程规划</h1><br>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 50%;">
+                <h2>今日对战表</h2><br>
+                <table id="list" width="500px" border="0" style="text-align: center; margin: auto;font-size: large;border-collapse: separate;
+                    border-spacing: 10px;">
+                    <tr>
+                        <th>时间</th>
+                        <th>组别</th>
+                        <th>场地</th>
+                        <th>对抗班级</th>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 50%;">
+                <div id="but" method="POST">
+                    <button class="button" id="button" onclick="geturl();"
+                        style="display: block;margin: auto;">观看直播</button>
+                </div>
+                <video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="60%"
+                    controls></video>
+                <script src="flv.min.js"></script>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">
+                <h2>时间</h2><br>
+                <p id="now">当前时间：</p><br>
+                <p id="first">距离今天下午第一场开始还有：</p>
+            </td>
+            <td style="width: 50%;">
+                <div class="layui-carousel" id="pic">
+                    <div carousel-item style="background-color:rgb(106, 151, 202);">
+                        <div><img src="pic/1.jpg" class="cimg"></div>
+                        <div><img src="pic/2.png" class="cimg"></div>
+                        <div><img src="pic/3.jpg" class="cimg"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <script src="/layui/layui.js"></script>
+    <script>
+        window.onload = getlist;
+        function getlist() {
+            fetch('/other/list.json')
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data);
+                    data.forEach(list => {
+                        var now = new Date();
+                        // console.log(now.getMonth() + 1 + "/" + (now.getDate() + 1));
+                        if ((now.getMonth() + 1) + "/" + (now.getDate() + 1) == list.date) {
+                            // console.log(list);
+                            appendlist(list);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        function appendlist(list) {
+            var List = document.getElementById("list");
+            var newlist = document.createElement("tr");
+            newlist.className = "list";
+            newlist.innerHTML = `<td>${list.time}</td><td>${list.group}</td><td>${list.place}</td><td>${list.class}</td>`;
+            List.appendChild(newlist);
+        }
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            carousel.render({
+                elem: '#pic'
+                , width: '440px' //设置容器宽度
+                , height: '250px'
+                , arrow: 'hover' //始终显示箭头
+                // , anim: 'updown' //切换动画方式
+                , interval: '3000'
+            });
+        });
+        var gettime = null;
+        gettime = setInterval(function () {
+            var time = new Date();
+            var nowtime = +new Date();
+            var first = new Date(`2024-${time.getMonth() + 1}-${time.getDate()} 14:30:00`);
+            var lim = (first - nowtime) / 1000;
+            var d = parseInt(lim / 60 / 60 / 24);
+            var h = parseInt(lim / 60 / 60 % 24);
+            var m = parseInt(lim / 60 % 60);
+            var s = parseInt(lim % 60);
+            d = d < 10 && d >= 0 ? '0' + d : d;
+            h = h < 10 && h >= 0 ? '0' + h : h;
+            m = m < 10 && m >= 0 ? '0' + m : m;
+            s = s < 10 && s >= 0 ? '0' + s : s;
+            document.getElementById("now").innerHTML = `当前时间：${time.getFullYear()}年${time.getMonth() + 1}月${time.getDate()}日 ${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+            document.getElementById("first").innerHTML = `距离今天下午第一场开始还有：${h}小时 ${m}分钟 ${s}秒`
+        }, 1000);
+        function geturl() {
+            document.getElementById('but').style.display = 'none';
+            var code = "video";
+            console.log(code);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    playflv(this.responseText);
+                    document.getElementById('domain').innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("POST", `/api/url/${code}`, true);
+            xhttp.send();
+        }
+        function playflv(url) {
+            if (flvjs.isSupported()) {
+                var videoElement = document.getElementById('videoElement');
+                var flvPlayer = flvjs.createPlayer({
+                    type: 'flv',
+                    url: url
+                });
+                flvPlayer.attachMediaElement(videoElement);
+                flvPlayer.load();
+                flvPlayer.play();
+            }
+        }  
+    </script>
+    
+</body>
+
+</html>

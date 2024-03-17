@@ -1,0 +1,74 @@
+@font-face {
+    font-family: kaiti;
+    src: url("/font/simkai.ttf");
+}
+
+body {
+    background-color: rgb(220, 233, 246);
+}
+
+.layui-nav-bar {
+    background-color: rgb(197, 219, 240);
+}
+
+.layui-nav {
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+}
+
+.name {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    width: 130px;
+}
+
+.nav-text {
+    font-size: 20px;
+    color: rgb(154, 176, 191) !important;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.main-h1 {
+    font-size: 40px;
+    font-weight: 800;
+    font-family: kaiti;
+    letter-spacing: 10px;
+    color: #7c8d99;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: 600;
+    font-family: kaiti;
+    color: #7c8d99;
+    text-align: center;
+}
+
+.cimg {
+    height: 100%;
+    display: block;
+    margin: auto;
+}
+
+#now {
+    text-align: center;
+    font-size: 20px;
+    color: rgb(186, 0, 0);
+}
+
+#first {
+    text-align: center;
+    font-size: 20px;
+    color: rgb(0, 144, 112);
+}
+#pic{
+    display: block;
+    margin: auto;
+}
