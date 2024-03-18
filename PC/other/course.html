@@ -50,7 +50,7 @@
                     <button class="button" id="button" onclick="geturl();"
                         style="display: block;margin: auto;">观看直播</button>
                 </div>
-                <video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="60%"
+                <video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="80%"
                     controls></video>
                 <script src="flv.min.js"></script>
             </td>
@@ -72,6 +72,18 @@
             </td>
         </tr>
     </table>
+    <ul class="bg-bubbles" style="z-index: -999;">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
     <script src="/layui/layui.js"></script>
     <script>
         window.onload = getlist;
@@ -153,7 +165,7 @@
                 flvPlayer.load();
                 flvPlayer.play();
             }
-        }  
+        }
     </script>
     
 </body>
