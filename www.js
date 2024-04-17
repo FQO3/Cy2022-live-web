@@ -128,10 +128,10 @@ async function asksub(url, domain, code, index) {
           });
         }
       }
-      resolve();
     }).on('error', (error) => {
       console.log(`无法连接至${domain}，或连接超时`);
     });
+    resolve();
   });
 }
 //开启服务器
