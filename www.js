@@ -6,8 +6,9 @@ const request = require("request");
 const port = 1308;
 const mainserver = "http://cyxsh.top";
 // const mainserver = "http:/fqo3.site";
-const subserver = ["http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site", "http://cyxsh.top"];
-const uploadsubserver = [80, 80, 40, 40];
+const subserver = ["http://cyxsh.top","http://hejie.cyxsh.top","http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site"];
+//                  内蒙               贺捷家                    范鸿喆服                王颢然家                 我家
+const uploadsubserver = [80, 100, 40, 80, 40];
 const view = [];
 const stream = 4320;
 const backup = ["http://pdx.cyxsh.top", "http://lax.cyxsh.top"];
