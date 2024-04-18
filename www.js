@@ -6,11 +6,11 @@ const request = require("request");
 const port = 1308;
 const mainserver = "http://cyxsh.top";
 // const mainserver = "http:/fqo3.site";
-const subserver = ["http://cyxsh.top","http://hejie.cyxsh.top","http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site"];
+const subserver = ["http://cyxsh.top", "http://hejie.cyxsh.top", "http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site"];
 //                  内蒙               贺捷家                    范鸿喆服                王颢然家                 我家
-const uploadsubserver = [80, 100, 40, 80, 40];
+const uploadsubserver = [80, 80, 80, 40, 40];
 const view = [];
-const stream = 4320;
+const stream = 3256;
 const backup = ["http://pdx.cyxsh.top", "http://lax.cyxsh.top"];
 //开启推流服务器
 const config = {
@@ -82,6 +82,7 @@ const viewer = {
   url: '',
   viewer: 999
 };
+//自动分配
 app.post("/api/url/:id", async (req, res) => {
   viewer.viewer = 999;
   var code = req.params;
@@ -127,11 +128,13 @@ async function asksub(url, domain, code, index) {
             }
           });
         }
+      } else {
+        console.log(`${domain}连接失败`);
       }
+      resolve();
     }).on('error', (error) => {
       console.log(`无法连接至${domain}，或连接超时`);
     });
-    resolve();
   });
 }
 //开启服务器
