@@ -4,9 +4,9 @@ const app = express();
 const NodeMediaServer = require("node-media-server");
 const request = require("request");
 const port = 1308;
-const mainserver = "http://cyxsh.top";
-// const mainserver = "http:/fqo3.site";
-const subserver = ["http://cyxsh.top", "http://hejie.cyxsh.top", "http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site"];
+// const mainserver = "http://cyxsh.top";
+const mainserver = "http://fqo3.site";
+const subserver = ["http://cyxsh.top", "http://hejie.fqo3.site", "http://hld.cyxsh.top", "http://hnd.cyxsh.top", "http://fqo3.site"];
 //                  内蒙               贺捷家                    范鸿喆服                王颢然家                 我家
 const uploadsubserver = [80, 80, 80, 40, 40];
 const view = [];
@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //设置跨域响应头
 function setHeaders(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 }
 app.use(setHeaders);
@@ -86,7 +87,7 @@ const viewer = {
 app.post("/api/url/:id", async (req, res) => {
   viewer.viewer = 999;
   var code = req.params;
-  viewer.url = `http://cyxsh.top:8001/live/${code.id}.flv`;
+  viewer.url = `http://fqo3.site:8001/live/${code.id}.flv`;
   const promises = subserver.map(async (num, index) => {
     if (num == mainserver) {
       await asksub(`http://127.0.0.1:8001/api/streams/live/${code.id}`, num, code.id, index);

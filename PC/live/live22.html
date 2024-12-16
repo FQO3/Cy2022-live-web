@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<title>直播2</title>
+	<link rel="stylesheet" href="/layui/css/layui.css">
+	<link rel="stylesheet" href="live.css">
+</head>
+
+<body translate="no" style="overflow:hidden">
+	<ul class="layui-nav" style="background-color: rgb(255, 255, 255);">
+		<a href="/index/index.html">
+			<img src="/pic/name-blue.png" alt="朝外学生会" class="name">
+		</a>
+		<li class="layui-nav-item" style="visibility: hidden;">&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+		<li class="layui-nav-item nav1"><a href="/index/index.html?pg=1" class="nav-text">首页</a>
+		</li>
+		<li class="layui-nav-item nav2 layui-this">
+			<a href="/index/index.html?pg=2" class="nav-text">直播</a>
+			<dl class="layui-nav-child">
+				<dd><a href="/live/live1.html">直播1</a></dd>
+				<dd><a href="/live/live2.html">直播2</a></dd>
+				<dd><a href="/live/live3.html">直播3</a></dd>
+				<dd><a href="/live/live4.html">直播4</a></dd>
+			</dl>
+		</li>
+		<li class="layui-nav-item nav3"><a href="/index/index.html?pg=3" class="nav-text">关于我们</a></li>
+		<li class="layui-nav-item"><a href="/suggest.html" class="nav-text">问题反馈</a></li>
+		<li class="layui-nav-item"><a href="/admin/adm.html" class="nav-text">管理页面</a></li>
+	</ul><br><br><br><br><br>
+	<h1 class="center main-h1">朝外2022级学生会直播平台-直播2</h1>
+	<center>
+		<div id="but" method="POST">
+			<!-- <form><b>请输入推流码: </b><input id="code" type="text" class="code"></form> -->
+			<button class="button" id="button" onclick="geturl()">观看直播</button>
+		</div>
+	</center>
+	<video id="videoElement" style="display: block; margin: auto; border-radius: 15px;" width="50%" controls></video>
+	<script src="flvExtend.js"></script>
+	<script src="flv.min.js"></script>
+	<script>
+		function geturl() {
+			document.getElementById('but').style.visibility = 'hidden';
+			var code = "video";
+			console.log(code);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+					playflv(this.responseText);
+					document.getElementById('domain').innerHTML = this.responseText;
+				}
+			};
+			xhttp.open("POST", `/api/url/${code}`, true);
+			xhttp.send();
+		}
+		function playflv(url) {
+			videoElement = document.getElementById('videoElement');
+			const flv = new FlvExtend({
+				element: videoElement, // *必传
+				frameTracking: true, // 开启追帧设置
+				updateOnStart: true, // 点击播放后更新视频
+				updateOnFocus: true, // 获得焦点后更新视频
+				reconnect: true, // 开启断流重连
+				reconnectInterval: 0 // 断流重连间隔
+			})
+			if (flvjs.isSupported()) {
+				const player = flv.init(
+					{
+						type: 'flv',
+						url: 'http://hejie.fqo3.site:8081/live/video.flv',
+						isLive: true
+					},
+					{
+						enableStashBuffer: false, // 如果您需要实时（最小延迟）来进行实时流播放，则设置为false
+						autoCleanupSourceBuffer: true, // 对SourceBuffer进行自动清理
+						stashInitialSize: 128, // 减少首帧显示等待时长
+						enableWorker: true // 启用分离的线程进行转换
+					}
+				)
+				// 直接调用play即可播放
+				player.play();
+				// var videoElement = document.getElementById('videoElement');
+				// var flvPlayer = flvjs.createPlayer({
+				// 	type: 'flv',
+				// 	url: url
+				// });
+				// flvPlayer.attachMediaElement(videoElement);
+				// flvPlayer.load();
+				// flvPlayer.play();
+			}
+		}
+	</script>
+	<br><p class="end"><b>本网页自动填充推流码为"video"</b></p>
+	<br><p class="end" id="domain">N/A</p>
+	<br><p class="end">&copy;朝外2022级媒体部。如有问题，请联系二班李昊哲或一班王颢然</p>
+	<ul class="bg-bubbles" style="z-index: -999;">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script src="/layui/layui.js"></script>
+</body>
+
+</html>
